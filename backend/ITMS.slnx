@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="ITMS.API/ITMS.API.csproj" />
+  <Project Path="ITMS.Application/ITMS.Application.csproj" />
+  <Project Path="ITMS.Domain/ITMS.Domain.csproj" />
+  <Project Path="ITMS.Infrastructure/ITMS.Infrastructure.csproj" />
+  <Project Path="ITMS.Tests/ITMS.Tests.csproj" />
+</Solution>

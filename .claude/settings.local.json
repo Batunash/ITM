@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet sln:*)",
+      "Bash(dotnet add:*)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet remove:*)",
+      "Bash(dotnet test:*)",
+      "Bash(npm run:*)",
+      "Bash(dotnet ef:*)",
+      "Bash(dotnet script:*)",
+      "Bash(dotnet fsi:*)",
+      "Bash(mkdir -p /tmp/hashgen)",
+      "Read(//tmp/**)",
+      "Bash(dotnet new:*)",
+      "Bash(cat)",
+      "Bash(taskkill /PID 27256 /F)",
+      "Bash(dotnet run:*)",
+      "Bash(curl -s -X POST http://localhost:5000/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"admin@itms.com\",\"password\":\"Password123!\"}')",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s -X POST http://localhost:5201/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"admin@itms.com\",\"password\":\"Password123!\"}')",
+      "Bash(grep -iE \"\\\\.\\(jsx|js\\)$\")"
+    ]
+  }
+}
