@@ -11,6 +11,10 @@ import ChangeRequestsPage from './pages/ChangeRequestsPage';
 import ReportsPage from './pages/ReportsPage';
 import SettingsPage from './pages/SettingsPage';
 import AuditLogsPage from './pages/AuditLogsPage';
+import CustomerHistoryPage from './pages/CustomerHistoryPage';
+import RoleManagementPage from './pages/RoleManagementPage';
+import BackupPage from './pages/BackupPage';
+import SlaPage from './pages/SlaPage';
 
 function App() {
   return (
@@ -28,6 +32,10 @@ function App() {
           <Route path="/reports" element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
           <Route path="/settings" element={<PrivateRoute><SettingsPage /></PrivateRoute>} />
           <Route path="/audit-logs" element={<PrivateRoute><AuditLogsPage /></PrivateRoute>} />
+          <Route path="/customer-history" element={<PrivateRoute><CustomerHistoryPage /></PrivateRoute>} />
+          <Route path="/roles" element={<PrivateRoute><RoleManagementPage /></PrivateRoute>} />
+          <Route path="/backup" element={<PrivateRoute><BackupPage /></PrivateRoute>} />
+          <Route path="/sla" element={<PrivateRoute><SlaPage /></PrivateRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -22,7 +22,10 @@
       "Bash(curl -s -X POST http://localhost:5000/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"admin@itms.com\",\"password\":\"Password123!\"}')",
       "Bash(python3 -m json.tool)",
       "Bash(curl -s -X POST http://localhost:5201/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"admin@itms.com\",\"password\":\"Password123!\"}')",
-      "Bash(grep -iE \"\\\\.\\(jsx|js\\)$\")"
+      "Bash(grep -iE \"\\\\.\\(jsx|js\\)$\")",
+      "Bash(where pg_dump)",
+      "Read(//c/Program Files/PostgreSQL\" 2>/dev/**)",
+      "Bash(cmd /c \"where pg_dump\")"
     ]
   }
 }

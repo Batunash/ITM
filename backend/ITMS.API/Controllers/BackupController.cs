@@ -19,7 +19,14 @@ public class BackupController : ControllerBase
     [HttpPost("trigger")]
     public IActionResult Trigger()
     {
-        var result = _backupService.TriggerBackup();
-        return Ok(new { message = result });
+        try
+        {
+            var filePath = _backupService.TriggerBackup();
+            return Ok(new { success = true, filePath, message = $"Backup saved to: {filePath}" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
     }
 }

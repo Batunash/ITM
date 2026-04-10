@@ -44,7 +44,7 @@ public class TicketController : ControllerBase
     }
 
     [HttpPost("{id}/close")]
-    [Authorize(Roles = "ITSupportAgent,ITManager,SystemAdmin")]
+    [Authorize(Roles = "EndUser,ITSupportAgent,ITManager,SystemAdmin")]
     public IActionResult Close(int id, [FromBody] CloseTicketDto dto)
     {
         _ticketService.CloseTicket(id, dto);

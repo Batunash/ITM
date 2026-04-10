@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using ITMS.Application.DTOs;
 using ITMS.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITMS.API.Controllers;
@@ -9,10 +11,12 @@ namespace ITMS.API.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
+    private readonly IRoleService _roleService;
 
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthService authService, IRoleService roleService)
     {
         _authService = authService;
+        _roleService = roleService;
     }
 
     [HttpPost("login")]
@@ -31,5 +35,15 @@ public class AuthController : ControllerBase
         if (result == null)
             return Conflict(new { message = "An account with this email already exists." });
         return Ok(result);
+    }
+
+    /// <summary>Returns the permission names assigned to the current user's role.</summary>
+    [HttpGet("permissions")]
+    [Authorize]
+    public IActionResult GetMyPermissions()
+    {
+        var roleName = User.FindFirstValue(ClaimTypes.Role) ?? string.Empty;
+        var permissions = _roleService.GetPermissionNamesByRoleName(roleName);
+        return Ok(permissions);
     }
 }

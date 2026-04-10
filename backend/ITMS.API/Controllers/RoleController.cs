@@ -30,6 +30,13 @@ public class RoleController : ControllerBase
         return NoContent();
     }
 
+    [HttpDelete("{id}/permissions/{permissionId}")]
+    public IActionResult RemovePermission(int id, int permissionId)
+    {
+        _roleService.RemovePermissionFromRole(id, permissionId);
+        return NoContent();
+    }
+
     [HttpPut("assign")]
     public IActionResult AssignRole([FromQuery] int userId, [FromQuery] int roleId)
     {

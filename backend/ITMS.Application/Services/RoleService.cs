@@ -40,6 +40,23 @@ public class RoleService : IRoleService
         _context.SaveChanges();
     }
 
+    public void RemovePermissionFromRole(int roleId, int permissionId)
+    {
+        var entry = _context.RolePermissions
+            .FirstOrDefault(rp => rp.RoleId == roleId && rp.PermissionId == permissionId);
+        if (entry == null) return;
+        _context.RolePermissions.Remove(entry);
+        _context.SaveChanges();
+    }
+
+    public List<string> GetPermissionNamesByRoleName(string roleName)
+        => _context.RolePermissions
+            .Include(rp => rp.Role)
+            .Include(rp => rp.Permission)
+            .Where(rp => rp.Role.Name == roleName)
+            .Select(rp => rp.Permission.Name)
+            .ToList();
+
     public void AssignRole(int userId, int roleId)
     {
         var user = _context.Users.Find(userId);

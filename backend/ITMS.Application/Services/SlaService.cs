@@ -1,3 +1,4 @@
+using ITMS.Application.DTOs;
 using ITMS.Application.Interfaces;
 using ITMS.Domain.Entities;
 using ITMS.Infrastructure.Data;
@@ -39,4 +40,32 @@ public class SlaService : ISlaService
             return elapsed > sla.TargetResolutionHours;
         }).ToList();
     }
+
+    public List<SlaDto> GetAll()
+        => _context.SLAs
+            .Include(s => s.Priority)
+            .ToList()
+            .Select(s => new SlaDto
+            {
+                Id = s.Id,
+                Priority = s.Priority?.Name ?? string.Empty,
+                TargetResolutionHours = s.TargetResolutionHours
+            })
+            .ToList();
+
+    public List<TicketResponseDto> GetViolationDtos()
+        => GetSlaViolations()
+            .Select(t => new TicketResponseDto
+            {
+                Id = t.Id,
+                Title = t.Title,
+                Description = t.Description,
+                Status = t.Status?.Name ?? string.Empty,
+                Priority = t.Priority?.Name ?? string.Empty,
+                CreatedBy = t.CreatedBy?.FullName ?? string.Empty,
+                AssignedTo = t.AssignedTo?.FullName,
+                CreatedAt = t.CreatedAt,
+                ClosedAt = t.ClosedAt
+            })
+            .ToList();
 }

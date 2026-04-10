@@ -48,7 +48,7 @@ export default function TicketManagementPage() {
 
   const { user } = useAuth();
   const canAssign = ['ITManager','SystemAdmin'].includes(user?.role);
-  const canClose  = ['ITSupportAgent','ITManager','SystemAdmin'].includes(user?.role);
+  const canClose  = user?.permissions?.includes('CloseTicket') ?? false;
   const canChangeStatus = ['ITSupportAgent','ITManager','SystemAdmin'].includes(user?.role);
   const isEndUser = user?.role === 'EndUser';
 
@@ -86,6 +86,21 @@ export default function TicketManagementPage() {
     api.get(`/attachments/${t.id}`)
       .then(r => setAttachments(Array.isArray(r.data) ? r.data : []))
       .catch(() => setAttachments([]));
+  };
+
+  const downloadAttachment = async (att) => {
+    // Derive the original filename from the stored path (avoids CORS header issues)
+    const rawName = att.filePath ? att.filePath.replace(/\\/g, '/').split('/').pop() : '';
+    const underscoreIdx = rawName.indexOf('_');
+    const fileName = underscoreIdx >= 0 ? rawName.slice(underscoreIdx + 1) : rawName || `attachment_${att.id}`;
+    try {
+      const response = await api.get(`/attachments/download/${att.id}`, { responseType: 'blob' });
+      const url = URL.createObjectURL(new Blob([response.data]));
+      const a = document.createElement('a');
+      a.href = url; a.download = fileName;
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a); URL.revokeObjectURL(url);
+    } catch { alert('Failed to download attachment.'); }
   };
 
   const updateTicket = (updated) => {
@@ -260,12 +275,11 @@ export default function TicketManagementPage() {
                       const idx = fileName.indexOf('_');
                       const displayName = idx >= 0 ? fileName.slice(idx + 1) : fileName;
                       return (
-                        <a key={att.id}
-                          href={`http://localhost:5201/api/attachments/download/${att.id}`}
-                          target="_blank" rel="noreferrer"
-                          style={{ fontSize:13, color:'#2563eb', textDecoration:'none', display:'flex', alignItems:'center', gap:4 }}>
+                        <button key={att.id}
+                          onClick={() => downloadAttachment(att)}
+                          style={{ background:'none', border:'none', padding:0, fontSize:13, color:'#2563eb', cursor:'pointer', textAlign:'left', display:'flex', alignItems:'center', gap:4 }}>
                           📎 {displayName}
-                        </a>
+                        </button>
                       );
                     })}
                   </div>
@@ -274,7 +288,7 @@ export default function TicketManagementPage() {
 
               {actionError && <div style={{background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'8px 12px', borderRadius:8, fontSize:13}}>{actionError}</div>}
 
-              {selected.status !== 'Closed' && !isEndUser && (
+              {selected.status !== 'Closed' && (canClose || canChangeStatus || canAssign) && (
                 <div style={{borderTop:'1px solid #f1f5f9', paddingTop:14, display:'flex', flexDirection:'column', gap:10}}>
                   <div style={{fontSize:10, fontWeight:700, color:'#94a3b8', letterSpacing:0.8, textTransform:'uppercase'}}>ACTIONS</div>
 

@@ -2,14 +2,18 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const navItems = [
-  { to: '/dashboard', label: 'Dashboard', roles: ['EndUser','ITSupportAgent','ITManager','SystemAdmin'] },
-  { to: '/tickets', label: 'Tickets', roles: ['EndUser','ITSupportAgent','ITManager','SystemAdmin'] },
-  { to: '/assets', label: 'Assets', roles: ['ITSupportAgent','ITManager','SystemAdmin'] },
-  { to: '/users', label: 'Users', roles: ['ITManager','SystemAdmin'] },
-  { to: '/change-requests', label: 'Change Requests', roles: ['EndUser','ITSupportAgent','ITManager','SystemAdmin'] },
-  { to: '/reports', label: 'Reports', roles: ['ITManager','SystemAdmin'] },
-  { to: '/audit-logs', label: 'Audit Logs', roles: ['ITManager','SystemAdmin'] },
-  { to: '/settings', label: 'Settings', roles: ['SystemAdmin'] },
+  { to: '/dashboard',         label: 'Dashboard',         roles: ['EndUser','ITSupportAgent','ITManager','SystemAdmin'] },
+  { to: '/tickets',           label: 'Tickets',           roles: ['EndUser','ITSupportAgent','ITManager','SystemAdmin'] },
+  { to: '/assets',            label: 'Assets',            roles: ['ITSupportAgent','ITManager','SystemAdmin'] },
+  { to: '/users',             label: 'Users',             roles: ['ITManager','SystemAdmin'] },
+  { to: '/change-requests',   label: 'Change Requests',   roles: ['EndUser','ITSupportAgent','ITManager','SystemAdmin'] },
+  { to: '/sla',               label: 'SLA',               roles: ['ITManager','SystemAdmin'] },
+  { to: '/customer-history',  label: 'Customer History',  roles: ['ITManager','SystemAdmin'] },
+  { to: '/reports',           label: 'Reports',           roles: ['ITManager','SystemAdmin'] },
+  { to: '/audit-logs',        label: 'Audit Logs',        roles: ['ITManager','SystemAdmin'] },
+  { to: '/roles',             label: 'Role Management',   roles: ['SystemAdmin'] },
+  { to: '/settings',          label: 'Settings',          roles: ['SystemAdmin'] },
+  { to: '/backup',            label: 'Backup',            roles: ['SystemAdmin'] },
 ];
 
 export default function Sidebar() {
