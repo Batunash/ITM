@@ -22,7 +22,7 @@ public class AssetServiceTests
     [Fact]
     public void AssignAssetToUser_WhenInStorage_ShouldChangeStatusToInUse()
     {
-        // Arrange
+        
         var context = CreateInMemoryContext();
         context.Statuses.AddRange(
             new Status { Id = 7, Name = "InStorage" },
@@ -36,10 +36,10 @@ public class AssetServiceTests
         var auditService = new Mock<IAuditLogService>();
         var service = new AssetService(assetRepo.Object, auditService.Object, context);
 
-        // Act
+        
         service.AssignAssetToUser(1, new AssignAssetDto { UserId = 5 });
 
-        // Assert
+        
         var asset = context.Assets.Find(1);
         Assert.Equal(8, asset!.StatusId);
         Assert.Equal(5, asset.AssignedToUserId);
@@ -48,7 +48,7 @@ public class AssetServiceTests
     [Fact]
     public void AssignAssetToUser_WhenInUse_ShouldThrowException()
     {
-        // Arrange
+        
         var context = CreateInMemoryContext();
         context.Statuses.Add(new Status { Id = 8, Name = "InUse" });
         context.AssetTypes.Add(new AssetType { Id = 1, TypeName = "Laptop" });
@@ -59,7 +59,7 @@ public class AssetServiceTests
         var auditService = new Mock<IAuditLogService>();
         var service = new AssetService(assetRepo.Object, auditService.Object, context);
 
-        // Act & Assert
+        
         Assert.Throws<InvalidOperationException>(() =>
             service.AssignAssetToUser(1, new AssignAssetDto { UserId = 5 }));
     }

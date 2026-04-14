@@ -9,8 +9,8 @@ export function AuthProvider({ children }) {
     return stored ? JSON.parse(stored) : null;
   });
 
-  // Re-fetch permissions whenever the token changes (login / page refresh).
-  // This ensures that role-permission changes by an admin take effect on next login.
+  
+  
   useEffect(() => {
     if (!user?.token) return;
     api.get('/auth/permissions')

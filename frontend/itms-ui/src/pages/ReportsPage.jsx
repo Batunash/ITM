@@ -23,11 +23,11 @@ export default function ReportsPage() {
 
       <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
         {[['tickets', 'Ticket Resolution'], ['sla', 'SLA Compliance'], ['agents', 'Agent Performance']].map(([key, label]) => (
-          <button key={key} onClick={() => setActiveTab(key)} style={{ padding: '8px 20px', borderRadius: 8, border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: 14, background: activeTab === key ? '#2563eb' : '#f1f5f9', color: activeTab === key ? '#fff' : '#374151' }}>{label}</button>
+          <button key={key} onClick={() => setActiveTab(key)} style={{ padding: '8px 20px', borderRadius: 4, border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: 14, background: activeTab === key ? '#334155' : '#f1f5f9', color: activeTab === key ? '#fff' : '#374151' }}>{label}</button>
         ))}
       </div>
 
-      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div style={{ background: '#fff', borderRadius: 4, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         {activeTab === 'tickets' && (
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
@@ -66,7 +66,7 @@ export default function ReportsPage() {
                   <td style={{ padding: '12px 16px', fontSize: 14 }}>{t.resolutionHours?.toFixed(1)}</td>
                   <td style={{ padding: '12px 16px', fontSize: 14 }}>{t.targetHours}</td>
                   <td style={{ padding: '12px 16px' }}>
-                    <span style={{ background: t.isCompliant ? '#dcfce7' : '#fee2e2', color: t.isCompliant ? '#16a34a' : '#dc2626', padding: '3px 10px', borderRadius: 20, fontSize: 12, fontWeight: 700 }}>
+                    <span style={{ background: t.isCompliant ? '#dcfce7' : '#fee2e2', color: t.isCompliant ? '#16a34a' : '#dc2626', padding: '3px 10px', borderRadius: 4, fontSize: 12, fontWeight: 700 }}>
                       {t.isCompliant ? 'Yes' : 'No'}
                     </span>
                   </td>

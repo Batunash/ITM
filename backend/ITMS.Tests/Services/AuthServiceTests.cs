@@ -23,7 +23,7 @@ public class AuthServiceTests
     [Fact]
     public void Login_WithValidCredentials_ShouldReturnToken()
     {
-        // Arrange
+        
         var passwordHash = BCrypt.Net.BCrypt.HashPassword("Password123!");
         var fakeUser = new User
         {
@@ -40,10 +40,10 @@ public class AuthServiceTests
 
         var service = new AuthService(userRepo.Object, BuildConfig());
 
-        // Act
+        
         var result = service.Login(new LoginDto { Email = "admin@itms.com", Password = "Password123!" });
 
-        // Assert
+        
         Assert.NotNull(result);
         Assert.False(string.IsNullOrEmpty(result.Token));
         Assert.Equal("SystemAdmin", result.Role);
@@ -54,7 +54,7 @@ public class AuthServiceTests
     [Fact]
     public void Login_WithInvalidPassword_ShouldReturnNull()
     {
-        // Arrange
+        
         var passwordHash = BCrypt.Net.BCrypt.HashPassword("Password123!");
         var fakeUser = new User
         {
@@ -71,33 +71,33 @@ public class AuthServiceTests
 
         var service = new AuthService(userRepo.Object, BuildConfig());
 
-        // Act
+        
         var result = service.Login(new LoginDto { Email = "admin@itms.com", Password = "WrongPassword!" });
 
-        // Assert
+        
         Assert.Null(result);
     }
 
     [Fact]
     public void Login_WithNonExistentEmail_ShouldReturnNull()
     {
-        // Arrange
+        
         var userRepo = new Mock<IUserRepository>();
         userRepo.Setup(r => r.GetByEmail(It.IsAny<string>())).Returns((User?)null);
 
         var service = new AuthService(userRepo.Object, BuildConfig());
 
-        // Act
+        
         var result = service.Login(new LoginDto { Email = "nobody@itms.com", Password = "Password123!" });
 
-        // Assert
+        
         Assert.Null(result);
     }
 
     [Fact]
     public void Login_WithValidCredentials_TokenShouldContainRoleClaim()
     {
-        // Arrange
+        
         var passwordHash = BCrypt.Net.BCrypt.HashPassword("Pass!");
         var fakeUser = new User
         {
@@ -114,13 +114,13 @@ public class AuthServiceTests
 
         var service = new AuthService(userRepo.Object, BuildConfig());
 
-        // Act
+        
         var result = service.Login(new LoginDto { Email = "agent@itms.com", Password = "Pass!" });
 
-        // Assert
+        
         Assert.NotNull(result);
         Assert.Equal("ITSupportAgent", result.Role);
-        // Token is a non-trivial JWT string (header.payload.signature)
+        
         Assert.Equal(3, result.Token.Split('.').Length);
     }
 }

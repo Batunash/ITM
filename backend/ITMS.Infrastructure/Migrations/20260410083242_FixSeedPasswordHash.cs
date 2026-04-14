@@ -4,10 +4,10 @@
 
 namespace ITMS.Infrastructure.Migrations
 {
-    /// <inheritdoc />
+    
     public partial class FixSeedPasswordHash : Migration
     {
-        /// <inheritdoc />
+        
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.UpdateData(
@@ -39,7 +39,7 @@ namespace ITMS.Infrastructure.Migrations
                 value: "$2a$11$SyvrsxlVhcz.qezKwEc3W.4ijQS.ddfLBLjmcnDDP9yvVadk1vY8G");
         }
 
-        /// <inheritdoc />
+        
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.UpdateData(

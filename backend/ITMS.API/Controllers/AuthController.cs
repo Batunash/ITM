@@ -37,7 +37,7 @@ public class AuthController : ControllerBase
         return Ok(result);
     }
 
-    /// <summary>Returns the permission names assigned to the current user's role.</summary>
+    
     [HttpGet("permissions")]
     [Authorize]
     public IActionResult GetMyPermissions()

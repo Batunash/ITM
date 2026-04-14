@@ -30,7 +30,7 @@ function Modal({ title, onClose, children }) {
 }
 const m = {
   overlay: { position:'fixed', inset:0, background:'rgba(0,0,0,0.45)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:1000 },
-  box: { background:'#fff', borderRadius:14, width:440, boxShadow:'0 20px 60px rgba(0,0,0,0.2)' },
+  box: { background:'#fff', borderRadius:14, width:440, border: '1px solid #e2e8f0', boxShadow: 'none' },
   head: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'18px 24px', borderBottom:'1px solid #f1f5f9' },
   title: { fontWeight:700, fontSize:16, color:'#0f172a' },
   x: { background:'none', border:'none', fontSize:24, cursor:'pointer', color:'#64748b', lineHeight:1, padding:0 },
@@ -81,7 +81,7 @@ export default function AssetManagementPage() {
   const paged = assets.slice((page-1)*pageSize, page*pageSize);
   const totalPages = Math.ceil(assets.length / pageSize);
 
-  /* ── Add asset ── */
+  
   const handleAdd = async (e) => {
     e.preventDefault();
     setAddLoading(true); setAddError('');
@@ -132,7 +132,7 @@ export default function AssetManagementPage() {
     } finally { setStatusLoading(null); }
   };
 
-  /* ── CSV export ── */
+  
   const exportCsv = () => {
     const rows = ['ID,Asset Name,Type,Assigned User,Status',
       ...assets.map(a => `${a.id},${a.assetName},${a.assetType},${a.assignedTo||'Unassigned'},${a.status}`)
@@ -144,7 +144,7 @@ export default function AssetManagementPage() {
 
   return (
     <Layout>
-      {/* Add Asset Modal */}
+      {}
       {showAdd && (
         <Modal title="Add New Asset" onClose={() => setShowAdd(false)}>
           <form onSubmit={handleAdd} style={{ display:'flex', flexDirection:'column', gap:16 }}>
@@ -170,7 +170,7 @@ export default function AssetManagementPage() {
         </Modal>
       )}
 
-      {/* Assign Asset Modal */}
+      {}
       {assignModal.open && (
         <Modal title={`Assign — ${assignModal.assetName || 'Asset'}`} onClose={() => setAssignModal({open:false,assetId:null,assetName:''})}>
           <form onSubmit={handleAssign} style={{ display:'flex', flexDirection:'column', gap:16 }}>
@@ -215,7 +215,7 @@ export default function AssetManagementPage() {
       <div style={s.summaryRow}>
         {[
           { label:'TOTAL ASSETS', value:summary.total, color:'#0f172a' },
-          { label:'IN USE', value:summary.inUse, color:'#3b82f6' },
+          { label:'IN USE', value:summary.inUse, color:'#475569' },
           { label:'IN STORAGE', value:summary.inStorage, color:'#22c55e' },
           { label:'MAINTENANCE', value:summary.maintenance, color:'#f59e0b' },
         ].map(c => (
@@ -294,7 +294,7 @@ export default function AssetManagementPage() {
           </span>
           <div style={s.pagingBtns}>
             {Array.from({length:totalPages},(_,i)=>i+1).map(p => (
-              <button key={p} style={{...s.pageBtn, background:p===page?'#2563eb':'#f1f5f9', color:p===page?'#fff':'#374151'}} onClick={() => setPage(p)}>{p}</button>
+              <button key={p} style={{...s.pageBtn, background:p===page?'#334155':'#f1f5f9', color:p===page?'#fff':'#374151'}} onClick={() => setPage(p)}>{p}</button>
             ))}
           </div>
         </div>
@@ -314,38 +314,38 @@ export default function AssetManagementPage() {
 
 const f = {
   lbl: { display:'block', fontSize:13, fontWeight:600, color:'#374151', marginBottom:6 },
-  inp: { width:'100%', padding:'10px 12px', border:'1.5px solid #e2e8f0', borderRadius:8, fontSize:14, outline:'none', boxSizing:'border-box' },
-  err: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius:8, fontSize:13 },
+  inp: { width:'100%', padding:'10px 12px', border:'1.5px solid #e2e8f0', borderRadius: 4, fontSize:14, outline:'none', boxSizing:'border-box' },
+  err: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius: 4, fontSize:13 },
   row: { display:'flex', gap:10, marginTop:4 },
-  cancel: { flex:1, padding:'10px', background:'#f1f5f9', color:'#374151', border:'none', borderRadius:8, fontSize:14, cursor:'pointer' },
-  submit: { flex:2, padding:'10px', background:'#2563eb', color:'#fff', border:'none', borderRadius:8, fontSize:14, cursor:'pointer', fontWeight:600 },
+  cancel: { flex:1, padding:'10px', background:'#f1f5f9', color:'#374151', border:'none', borderRadius: 4, fontSize:14, cursor:'pointer' },
+  submit: { flex:2, padding:'10px', background:'#334155', color:'#fff', border:'none', borderRadius: 4, fontSize:14, cursor:'pointer', fontWeight:600 },
 };
 const s = {
   header: { display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:24 },
   pageTitle: { margin:0, fontSize:22, fontWeight:700, color:'#0f172a' },
   subtitle: { margin:'4px 0 0', color:'#64748b', fontSize:14 },
-  assignBtn: { background:'#2563eb', color:'#fff', border:'none', padding:'10px 18px', borderRadius:8, fontSize:14, fontWeight:600, cursor:'pointer' },
+  assignBtn: { background:'#334155', color:'#fff', border:'none', padding:'10px 18px', borderRadius: 4, fontSize:14, fontWeight:600, cursor:'pointer' },
   summaryRow: { display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16, marginBottom:24 },
-  summaryCard: { background:'#fff', borderRadius:12, padding:20, border:'1px solid #e2e8f0' },
+  summaryCard: { background:'#fff', borderRadius: 4, padding:20, border:'1px solid #e2e8f0' },
   summaryLabel: { fontSize:11, fontWeight:700, color:'#64748b', letterSpacing:1, marginBottom:8 },
   summaryValue: { fontSize:32, fontWeight:800, lineHeight:1 },
-  tableCard: { background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', overflow:'hidden', marginBottom:20 },
+  tableCard: { background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', overflow:'hidden', marginBottom:20 },
   table: { width:'100%', borderCollapse:'collapse' },
   th: { textAlign:'left', padding:'12px 16px', fontSize:11, fontWeight:700, color:'#64748b', background:'#f8fafc', borderBottom:'1px solid #e2e8f0', textTransform:'uppercase' },
   tr: { borderBottom:'1px solid #f8fafc' },
   td: { padding:'14px 16px', fontSize:14, color:'#374151' },
   assetName: { fontWeight:600, color:'#0f172a' },
   assetId: { fontSize:11, color:'#94a3b8', marginTop:2 },
-  userBadge: { background:'#dbeafe', color:'#1d4ed8', padding:'4px 10px', borderRadius:20, fontSize:13 },
+  userBadge: { background:'#dbeafe', color:'#1e293b', padding:'4px 10px', borderRadius: 4, fontSize:13 },
   menuBtn: { background:'none', border:'none', cursor:'pointer', fontSize:18, color:'#64748b', padding:'2px 8px' },
-  dropdown: { position:'absolute', right:0, top:'100%', background:'#fff', border:'1px solid #e2e8f0', borderRadius:8, boxShadow:'0 4px 16px rgba(0,0,0,0.1)', zIndex:100, minWidth:160, overflow:'hidden' },
+  dropdown: { position:'absolute', right:0, top:'100%', background:'#fff', border:'1px solid #e2e8f0', borderRadius: 4, boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex:100, minWidth:160, overflow:'hidden' },
   dropItem: { display:'block', width:'100%', padding:'10px 16px', background:'none', border:'none', textAlign:'left', fontSize:13, cursor:'pointer', color:'#374151' },
   pagination: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'12px 16px', borderTop:'1px solid #f1f5f9' },
   pagingInfo: { fontSize:13, color:'#64748b' },
   pagingBtns: { display:'flex', gap:4 },
-  pageBtn: { width:32, height:32, border:'none', borderRadius:6, cursor:'pointer', fontWeight:600, fontSize:13 },
+  pageBtn: { width:32, height:32, border:'none', borderRadius: 4, cursor:'pointer', fontWeight:600, fontSize:13 },
   actionRow: { display:'flex', gap:16, marginBottom:20 },
-  actionBtn: { background:'#fff', border:'1px solid #e2e8f0', borderRadius:10, padding:'14px 24px', cursor:'pointer', fontSize:14, fontWeight:600, color:'#374151', textAlign:'left' },
+  actionBtn: { background:'#fff', border:'1px solid #e2e8f0', borderRadius: 4, padding:'14px 24px', cursor:'pointer', fontSize:14, fontWeight:600, color:'#374151', textAlign:'left' },
   actionSub: { fontSize:12, color:'#94a3b8', fontWeight:400 },
-  addBtn: { position:'fixed', bottom:32, left:280, background:'#2563eb', color:'#fff', border:'none', padding:'12px 20px', borderRadius:30, fontSize:14, fontWeight:600, cursor:'pointer', boxShadow:'0 4px 14px rgba(37,99,235,0.4)' },
+  addBtn: { position:'fixed', bottom:32, left:280, background:'#334155', color:'#fff', border:'none', padding:'12px 20px', borderRadius:30, fontSize:14, fontWeight:600, cursor:'pointer', boxShadow:'0 4px 12px rgba(0,0,0,0.15)' },
 };

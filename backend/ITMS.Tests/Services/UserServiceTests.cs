@@ -12,7 +12,7 @@ public class UserServiceTests
     [Fact]
     public void CreateUser_ShouldAddUserAndRecordAuditLog()
     {
-        // Arrange
+        
         var userRepo = new Mock<IUserRepository>();
         var auditService = new Mock<IAuditLogService>();
 
@@ -30,31 +30,31 @@ public class UserServiceTests
             RoleId = 2
         };
 
-        // Act
+        
         var result = service.CreateUser(dto);
 
-        // Assert
+        
         userRepo.Verify(r => r.Add(It.IsAny<User>()), Times.Once);
         auditService.Verify(a => a.RecordAction(It.IsAny<int>(), It.Is<string>(s => s.Contains("jane@itms.com"))), Times.Once);
         Assert.Equal("Jane Doe", result.FullName);
         Assert.Equal("jane@itms.com", result.Email);
         Assert.NotNull(capturedUser);
-        // Password should be stored hashed, not in plain text
+        
         Assert.NotEqual("Secret123!", capturedUser!.PasswordHash);
     }
 
     [Fact]
     public void DeleteUser_ShouldCallDeleteAndRecordAuditLog()
     {
-        // Arrange
+        
         var userRepo = new Mock<IUserRepository>();
         var auditService = new Mock<IAuditLogService>();
         var service = new UserService(userRepo.Object, auditService.Object);
 
-        // Act
+        
         service.DeleteUser(5);
 
-        // Assert
+        
         userRepo.Verify(r => r.Delete(5), Times.Once);
         auditService.Verify(a => a.RecordAction(5, It.IsAny<string>()), Times.Once);
     }
@@ -62,7 +62,7 @@ public class UserServiceTests
     [Fact]
     public void GetAllUsers_ShouldReturnMappedDtos()
     {
-        // Arrange
+        
         var fakeUsers = new List<User>
         {
             new User { Id = 1, FullName = "Alice", Email = "alice@itms.com", Role = new Role { Name = "EndUser" }, RoleId = 1 },
@@ -75,10 +75,10 @@ public class UserServiceTests
         var auditService = new Mock<IAuditLogService>();
         var service = new UserService(userRepo.Object, auditService.Object);
 
-        // Act
+        
         var result = service.GetAllUsers();
 
-        // Assert
+        
         Assert.Equal(2, result.Count);
         Assert.Equal("Alice", result[0].FullName);
         Assert.Equal("ITSupportAgent", result[1].Role);
@@ -87,7 +87,7 @@ public class UserServiceTests
     [Fact]
     public void UpdateUser_WhenUserExists_ShouldUpdateAndReturnDto()
     {
-        // Arrange
+        
         var existing = new User
         {
             Id = 3,
@@ -105,10 +105,10 @@ public class UserServiceTests
 
         var dto = new UpdateUserDto { FullName = "New Name", Email = "new@itms.com", RoleId = 2 };
 
-        // Act
+        
         var result = service.UpdateUser(3, dto);
 
-        // Assert
+        
         Assert.NotNull(result);
         Assert.Equal("New Name", result!.FullName);
         Assert.Equal("new@itms.com", result.Email);
@@ -119,17 +119,17 @@ public class UserServiceTests
     [Fact]
     public void UpdateUser_WhenUserNotFound_ShouldReturnNull()
     {
-        // Arrange
+        
         var userRepo = new Mock<IUserRepository>();
         userRepo.Setup(r => r.GetById(It.IsAny<int>())).Returns((User?)null);
 
         var auditService = new Mock<IAuditLogService>();
         var service = new UserService(userRepo.Object, auditService.Object);
 
-        // Act
+        
         var result = service.UpdateUser(99, new UpdateUserDto { FullName = "X", Email = "x@x.com", RoleId = 1 });
 
-        // Assert
+        
         Assert.Null(result);
         userRepo.Verify(r => r.Update(It.IsAny<User>()), Times.Never);
     }

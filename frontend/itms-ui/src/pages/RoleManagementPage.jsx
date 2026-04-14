@@ -9,7 +9,7 @@ const ALL_PERMISSIONS = [
 ];
 
 const ROLE_COLORS = {
-  EndUser:'#475569', ITSupportAgent:'#1d4ed8', ITManager:'#7c3aed', SystemAdmin:'#dc2626',
+  EndUser:'#475569', ITSupportAgent:'#1e293b', ITManager:'#7c3aed', SystemAdmin:'#dc2626',
 };
 
 function Modal({ title, onClose, children }) {
@@ -27,7 +27,7 @@ function Modal({ title, onClose, children }) {
 }
 const m = {
   overlay: { position:'fixed', inset:0, background:'rgba(0,0,0,0.45)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:1000 },
-  box: { background:'#fff', borderRadius:14, width:500, boxShadow:'0 20px 60px rgba(0,0,0,0.2)', maxHeight:'90vh', overflowY:'auto' },
+  box: { background:'#fff', borderRadius:14, width:500, border: '1px solid #e2e8f0', boxShadow: 'none', maxHeight:'90vh', overflowY:'auto' },
   head: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'18px 24px', borderBottom:'1px solid #f1f5f9', position:'sticky', top:0, background:'#fff' },
   title: { fontWeight:700, fontSize:16, color:'#0f172a' },
   x: { background:'none', border:'none', fontSize:24, cursor:'pointer', color:'#64748b', lineHeight:1, padding:0 },
@@ -37,7 +37,7 @@ const m = {
 export default function RoleManagementPage() {
   const [roles, setRoles] = useState([]);
   const [users, setUsers] = useState([]);
-  const [permMap, setPermMap] = useState({}); // roleId -> [Permission]
+  const [permMap, setPermMap] = useState({}); 
   const [expandedRole, setExpandedRole] = useState(null);
 
   const [assignModal, setAssignModal] = useState(false);
@@ -143,7 +143,7 @@ export default function RoleManagementPage() {
         </Modal>
       )}
 
-      {/* Add Permission Modal */}
+      {}
       {addPermModal && (
         <Modal title="Add Permission to Role" onClose={() => { setAddPermModal(null); setAddPermError(''); }}>
           <form onSubmit={handleAddPermission} style={{ display:'flex', flexDirection:'column', gap:16 }}>
@@ -206,7 +206,7 @@ export default function RoleManagementPage() {
                             onClick={() => handleRemovePermission(role.id, p.id)}
                             disabled={removing}
                             title="Remove permission"
-                            style={{ background:'none', border:'none', cursor:'pointer', color:'#2563eb', marginLeft:4, padding:'0 2px', fontSize:13, lineHeight:1, fontWeight:700 }}>
+                            style={{ background:'none', border:'none', cursor:'pointer', color:'#334155', marginLeft:4, padding:'0 2px', fontSize:13, lineHeight:1, fontWeight:700 }}>
                             ×
                           </button>
                         </span>
@@ -239,7 +239,7 @@ export default function RoleManagementPage() {
                     <td style={{...s.td, fontWeight:600}}>{u.fullName}</td>
                     <td style={{...s.td, color:'#64748b'}}>{u.email}</td>
                     <td style={s.td}>
-                      <span style={{ background: color + '20', color, padding:'3px 10px', borderRadius:20, fontSize:12, fontWeight:600 }}>{u.role}</span>
+                      <span style={{ background: color + '20', color, padding:'3px 10px', borderRadius: 4, fontSize:12, fontWeight:600 }}>{u.role}</span>
                     </td>
                   </tr>
                 );
@@ -257,28 +257,28 @@ export default function RoleManagementPage() {
 
 const f = {
   lbl: { display:'block', fontSize:13, fontWeight:600, color:'#374151', marginBottom:6 },
-  inp: { width:'100%', padding:'10px 12px', border:'1.5px solid #e2e8f0', borderRadius:8, fontSize:14, outline:'none', boxSizing:'border-box' },
-  err: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius:8, fontSize:13 },
-  ok:  { background:'#f0fdf4', border:'1px solid #bbf7d0', color:'#16a34a', padding:'10px 14px', borderRadius:8, fontSize:13 },
+  inp: { width:'100%', padding:'10px 12px', border:'1.5px solid #e2e8f0', borderRadius: 4, fontSize:14, outline:'none', boxSizing:'border-box' },
+  err: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius: 4, fontSize:13 },
+  ok:  { background:'#f0fdf4', border:'1px solid #bbf7d0', color:'#16a34a', padding:'10px 14px', borderRadius: 4, fontSize:13 },
   row: { display:'flex', gap:10, marginTop:4 },
-  cancel: { flex:1, padding:'10px', background:'#f1f5f9', color:'#374151', border:'none', borderRadius:8, fontSize:14, cursor:'pointer' },
-  submit: { flex:2, padding:'10px', background:'#2563eb', color:'#fff', border:'none', borderRadius:8, fontSize:14, cursor:'pointer', fontWeight:600 },
+  cancel: { flex:1, padding:'10px', background:'#f1f5f9', color:'#374151', border:'none', borderRadius: 4, fontSize:14, cursor:'pointer' },
+  submit: { flex:2, padding:'10px', background:'#334155', color:'#fff', border:'none', borderRadius: 4, fontSize:14, cursor:'pointer', fontWeight:600 },
 };
 const s = {
   header: { display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:24 },
   pageTitle: { margin:0, fontSize:22, fontWeight:700, color:'#0f172a' },
   subtitle: { margin:'4px 0 0', color:'#64748b', fontSize:14 },
-  assignBtn: { background:'#2563eb', color:'#fff', border:'none', padding:'10px 18px', borderRadius:8, fontSize:14, fontWeight:600, cursor:'pointer' },
+  assignBtn: { background:'#334155', color:'#fff', border:'none', padding:'10px 18px', borderRadius: 4, fontSize:14, fontWeight:600, cursor:'pointer' },
   grid: { display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:16, marginBottom:8 },
-  roleCard: { background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', overflow:'hidden' },
+  roleCard: { background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', overflow:'hidden' },
   roleHead: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'16px 20px' },
-  roleIcon: { width:38, height:38, borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, fontWeight:700 },
+  roleIcon: { width:38, height:38, borderRadius: 4, display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, fontWeight:700 },
   expandBtn: { background:'none', border:'none', cursor:'pointer', color:'#64748b', fontSize:14 },
   roleBody: { borderTop:'1px solid #f1f5f9', padding:'14px 20px', display:'flex', flexDirection:'column', gap:12 },
   permList: { display:'flex', flexWrap:'wrap', gap:8 },
-  permTag: { background:'#eff6ff', color:'#2563eb', padding:'4px 12px', borderRadius:20, fontSize:12, fontWeight:600 },
-  addPermBtn: { alignSelf:'flex-start', background:'none', border:'1px dashed #cbd5e1', borderRadius:8, padding:'6px 14px', fontSize:13, color:'#64748b', cursor:'pointer' },
-  tableCard: { background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', overflow:'hidden' },
+  permTag: { background:'#eff6ff', color:'#334155', padding:'4px 12px', borderRadius: 4, fontSize:12, fontWeight:600 },
+  addPermBtn: { alignSelf:'flex-start', background:'none', border:'1px dashed #cbd5e1', borderRadius: 4, padding:'6px 14px', fontSize:13, color:'#64748b', cursor:'pointer' },
+  tableCard: { background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', overflow:'hidden' },
   table: { width:'100%', borderCollapse:'collapse' },
   th: { textAlign:'left', padding:'12px 16px', fontSize:11, fontWeight:700, color:'#64748b', background:'#f8fafc', borderBottom:'1px solid #e2e8f0', textTransform:'uppercase' },
   tr: { borderBottom:'1px solid #f8fafc' },

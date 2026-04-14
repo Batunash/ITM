@@ -128,7 +128,7 @@
     transition: box-shadow 0.3s;
 
     &:hover {
-      box-shadow: var(--shadow);
+      box-shadow: none; border: 1px solid #e2e8f0;
     }
     .button-icon {
       height: 18px;

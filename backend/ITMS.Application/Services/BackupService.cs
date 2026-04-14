@@ -18,12 +18,12 @@ public class BackupService : IBackupService
         var timestamp = DateTime.UtcNow.ToString("yyyyMMdd_HHmmss");
         var backupFileName = $"itms_backup_{timestamp}.sql";
 
-        // Resolve and create the backups directory next to the running executable
+        
         var backupDir = Path.Combine(AppContext.BaseDirectory, "backups");
         Directory.CreateDirectory(backupDir);
         var backupPath = Path.Combine(backupDir, backupFileName);
 
-        // Parse the Npgsql connection string (key=value pairs separated by ;)
+        
         var connectionString = _configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
         var parts = connectionString
             .Split(';', StringSplitOptions.RemoveEmptyEntries)
@@ -53,7 +53,7 @@ public class BackupService : IBackupService
             CreateNoWindow = true,
         };
 
-        // Pass password via environment variable so we never expose it in arguments
+        
         if (!string.IsNullOrEmpty(password))
             psi.Environment["PGPASSWORD"] = password;
 
@@ -69,13 +69,13 @@ public class BackupService : IBackupService
         return backupPath;
     }
 
-    /// <summary>
-    /// Searches common Windows PostgreSQL installation directories for pg_dump.
-    /// Falls back to just "pg_dump" (relies on PATH) if none are found.
-    /// </summary>
+    
+    
+    
+    
     private static string ResolvePgDump()
     {
-        // Try common Windows PostgreSQL installation paths (newest versions first)
+        
         var candidates = new List<string>();
         foreach (var version in new[] { "18", "17", "16", "15", "14", "13", "12" })
         {
@@ -84,6 +84,6 @@ public class BackupService : IBackupService
         }
 
         var found = candidates.FirstOrDefault(File.Exists);
-        return found ?? "pg_dump"; // fall back to PATH lookup
+        return found ?? "pg_dump"; 
     }
 }

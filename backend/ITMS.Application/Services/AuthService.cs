@@ -39,14 +39,14 @@ public class AuthService : IAuthService
     public LoginResultDto? Register(RegisterDto dto)
     {
         if (_userRepository.GetByEmail(dto.Email) != null)
-            return null; // email already taken
+            return null; 
 
         var user = new ITMS.Domain.Entities.User
         {
             FullName = dto.FullName,
             Email = dto.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-            RoleId = 1 // EndUser by default
+            RoleId = 1 
         };
         _userRepository.Add(user);
 

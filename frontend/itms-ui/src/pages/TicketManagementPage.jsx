@@ -16,7 +16,7 @@ const PRIORITIES = [
 
 const Badge = ({ text, colorMap }) => {
   const color = colorMap[text] || '#94a3b8';
-  return <span style={{ background:color+'20', color, padding:'3px 10px', borderRadius:20, fontSize:12, fontWeight:600 }}>{text}</span>;
+  return <span style={{ background:color+'20', color, padding:'3px 10px', borderRadius: 4, fontSize:12, fontWeight:600 }}>{text}</span>;
 };
 
 const DL = ({ label, children }) => (
@@ -108,7 +108,7 @@ export default function TicketManagementPage() {
     setSelected(updated);
   };
 
-  /* ── Create ── */
+  
   const handleCreate = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -176,7 +176,7 @@ export default function TicketManagementPage() {
       </div>
 
       <div style={s.content}>
-        {/* Table */}
+        {}
         <div style={{ flex:1, minWidth:0 }}>
           <table style={s.table}>
             <thead>
@@ -200,7 +200,7 @@ export default function TicketManagementPage() {
           </table>
         </div>
 
-        {/* New Ticket Panel */}
+        {}
         {showNew && (
           <div style={s.panel}>
             <div style={s.panelHead}>
@@ -225,7 +225,7 @@ export default function TicketManagementPage() {
                 onChange={e => setForm({...form, description:e.target.value})} required />
 
               <label style={{...s.lbl, marginTop:14}}>ATTACHMENTS</label>
-              <div {...getRootProps()} style={{...s.dropzone, border: isDragActive ? '2px dashed #2563eb' : '2px dashed #e2e8f0'}}>
+              <div {...getRootProps()} style={{...s.dropzone, border: isDragActive ? '2px dashed #334155' : '2px dashed #e2e8f0'}}>
                 <input {...getInputProps()} />
                 <div style={{textAlign:'center', color:'#94a3b8'}}>
                   <div style={{fontSize:24, marginBottom:6}}>📄</div>
@@ -244,7 +244,7 @@ export default function TicketManagementPage() {
           </div>
         )}
 
-        {/* Detail Panel */}
+        {}
         {selected && !showNew && (
           <div style={s.panel}>
             <div style={s.panelHead}>
@@ -277,7 +277,7 @@ export default function TicketManagementPage() {
                       return (
                         <button key={att.id}
                           onClick={() => downloadAttachment(att)}
-                          style={{ background:'none', border:'none', padding:0, fontSize:13, color:'#2563eb', cursor:'pointer', textAlign:'left', display:'flex', alignItems:'center', gap:4 }}>
+                          style={{ background:'none', border:'none', padding:0, fontSize:13, color:'#334155', cursor:'pointer', textAlign:'left', display:'flex', alignItems:'center', gap:4 }}>
                           📎 {displayName}
                         </button>
                       );
@@ -286,13 +286,13 @@ export default function TicketManagementPage() {
                 )}
               </div>
 
-              {actionError && <div style={{background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'8px 12px', borderRadius:8, fontSize:13}}>{actionError}</div>}
+              {actionError && <div style={{background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'8px 12px', borderRadius: 4, fontSize:13}}>{actionError}</div>}
 
               {selected.status !== 'Closed' && (canClose || canChangeStatus || canAssign) && (
                 <div style={{borderTop:'1px solid #f1f5f9', paddingTop:14, display:'flex', flexDirection:'column', gap:10}}>
                   <div style={{fontSize:10, fontWeight:700, color:'#94a3b8', letterSpacing:0.8, textTransform:'uppercase'}}>ACTIONS</div>
 
-                  {/* Change status */}
+                  {}
                   {canChangeStatus && (
                     <div style={{display:'flex', gap:8}}>
                       <select style={{...s.inp, flex:1}} value={newStatusId} onChange={e => setNewStatusId(e.target.value)}>
@@ -320,7 +320,7 @@ export default function TicketManagementPage() {
                     </div>
                   )}
 
-                  {/* Close */}
+                  {}
                   {canClose && (
                     <button style={{...s.closeTicketBtn, opacity:closing?0.5:1}} disabled={closing} onClick={handleClose}>
                       {closing ? 'Closing...' : '✓ Close Ticket'}
@@ -345,24 +345,24 @@ const s = {
   header: { display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:24 },
   pageTitle: { margin:0, fontSize:22, fontWeight:700, color:'#0f172a' },
   subtitle: { margin:'4px 0 0', color:'#64748b', fontSize:14 },
-  newBtn: { background:'#2563eb', color:'#fff', border:'none', padding:'10px 18px', borderRadius:8, fontSize:14, fontWeight:600, cursor:'pointer', flexShrink:0 },
+  newBtn: { background:'#334155', color:'#fff', border:'none', padding:'10px 18px', borderRadius: 4, fontSize:14, fontWeight:600, cursor:'pointer', flexShrink:0 },
   content: { display:'flex', gap:20, alignItems:'flex-start' },
-  table: { width:'100%', borderCollapse:'collapse', background:'#fff', borderRadius:12, overflow:'hidden', border:'1px solid #e2e8f0' },
+  table: { width:'100%', borderCollapse:'collapse', background:'#fff', borderRadius: 4, overflow:'hidden', border:'1px solid #e2e8f0' },
   th: { textAlign:'left', padding:'12px 14px', fontSize:11, fontWeight:700, color:'#64748b', background:'#f8fafc', borderBottom:'1px solid #e2e8f0', textTransform:'uppercase' },
   tr: { borderBottom:'1px solid #f8fafc' },
   td: { padding:'12px 14px', fontSize:14, color:'#374151' },
   ticketId: { fontWeight:700, color:'#64748b', fontSize:13 },
-  viewBtn: { background:'transparent', border:'1px solid #e2e8f0', borderRadius:6, padding:'5px 14px', fontSize:13, color:'#374151', cursor:'pointer' },
-  panel: { width:320, background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', flexShrink:0 },
+  viewBtn: { background:'transparent', border:'1px solid #e2e8f0', borderRadius: 4, padding:'5px 14px', fontSize:13, color:'#374151', cursor:'pointer' },
+  panel: { width:320, background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', flexShrink:0 },
   panelHead: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'16px 20px', borderBottom:'1px solid #f1f5f9' },
   panelTitle: { fontWeight:700, fontSize:15, color:'#0f172a' },
   closeBtn: { background:'none', border:'none', fontSize:20, cursor:'pointer', color:'#64748b' },
   form: { padding:20, display:'flex', flexDirection:'column' },
   lbl: { fontSize:11, fontWeight:700, color:'#64748b', letterSpacing:0.5, marginBottom:6 },
-  inp: { width:'100%', padding:'9px 12px', border:'1px solid #e2e8f0', borderRadius:8, fontSize:14, outline:'none', boxSizing:'border-box' },
-  dropzone: { borderRadius:8, padding:'24px 16px', cursor:'pointer', background:'#f8fafc', marginTop:4 },
-  submitBtn: { marginTop:18, background:'#2563eb', color:'#fff', border:'none', padding:'12px', borderRadius:8, fontSize:14, fontWeight:600, cursor:'pointer', width:'100%' },
+  inp: { width:'100%', padding:'9px 12px', border:'1px solid #e2e8f0', borderRadius: 4, fontSize:14, outline:'none', boxSizing:'border-box' },
+  dropzone: { borderRadius: 4, padding:'24px 16px', cursor:'pointer', background:'#f8fafc', marginTop:4 },
+  submitBtn: { marginTop:18, background:'#334155', color:'#fff', border:'none', padding:'12px', borderRadius: 4, fontSize:14, fontWeight:600, cursor:'pointer', width:'100%' },
   submitNote: { textAlign:'center', fontSize:10, color:'#94a3b8', marginTop:8 },
-  actBtn: { padding:'9px 14px', background:'#2563eb', color:'#fff', border:'none', borderRadius:8, fontSize:13, fontWeight:600, cursor:'pointer', flexShrink:0 },
-  closeTicketBtn: { width:'100%', padding:'10px', background:'#dcfce7', color:'#16a34a', border:'1px solid #bbf7d0', borderRadius:8, fontSize:13, fontWeight:700, cursor:'pointer' },
+  actBtn: { padding:'9px 14px', background:'#334155', color:'#fff', border:'none', borderRadius: 4, fontSize:13, fontWeight:600, cursor:'pointer', flexShrink:0 },
+  closeTicketBtn: { width:'100%', padding:'10px', background:'#dcfce7', color:'#16a34a', border:'1px solid #bbf7d0', borderRadius: 4, fontSize:13, fontWeight:700, cursor:'pointer' },
 };

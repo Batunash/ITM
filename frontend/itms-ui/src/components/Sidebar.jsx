@@ -43,7 +43,7 @@ export default function Sidebar() {
             to={item.to}
             style={({ isActive }) => ({
               ...styles.navItem,
-              backgroundColor: isActive ? '#2563eb' : 'transparent',
+              backgroundColor: isActive ? '#334155' : 'transparent',
               color: isActive ? '#fff' : '#94a3b8',
             })}
           >
@@ -68,15 +68,15 @@ export default function Sidebar() {
 const styles = {
   sidebar: { width: 240, background: '#0f172a', display: 'flex', flexDirection: 'column', height: '100vh', position: 'fixed', left: 0, top: 0 },
   logo: { display: 'flex', alignItems: 'center', gap: 12, padding: '20px 16px', borderBottom: '1px solid #1e293b' },
-  logoIcon: { fontSize: 24, background: '#2563eb', borderRadius: 8, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' },
+  logoIcon: { fontSize: 24, background: '#334155', borderRadius: 4, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' },
   logoTitle: { color: '#fff', fontWeight: 700, fontSize: 14 },
   logoSub: { color: '#64748b', fontSize: 11 },
   nav: { flex: 1, padding: '12px 8px', display: 'flex', flexDirection: 'column', gap: 2 },
-  navItem: { display: 'block', padding: '10px 12px', borderRadius: 6, textDecoration: 'none', fontSize: 14, fontWeight: 500, transition: 'all 0.15s' },
+  navItem: { display: 'block', padding: '10px 12px', borderRadius: 4, textDecoration: 'none', fontSize: 14, fontWeight: 500, transition: 'all 0.15s' },
   footer: { padding: 16, borderTop: '1px solid #1e293b' },
   userInfo: { display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 },
-  avatar: { width: 32, height: 32, borderRadius: '50%', background: '#2563eb', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700 },
+  avatar: { width: 32, height: 32, borderRadius: '50%', background: '#334155', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700 },
   userName: { color: '#e2e8f0', fontSize: 13, fontWeight: 600 },
   userRole: { color: '#64748b', fontSize: 11 },
-  logoutBtn: { width: '100%', padding: '8px', background: '#1e293b', color: '#94a3b8', border: 'none', borderRadius: 6, cursor: 'pointer', fontSize: 13 },
+  logoutBtn: { width: '100%', padding: '8px', background: '#1e293b', color: '#94a3b8', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 13 },
 };

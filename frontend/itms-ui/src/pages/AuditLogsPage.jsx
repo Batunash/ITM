@@ -20,7 +20,7 @@ export default function AuditLogsPage() {
         <p style={{ margin:'4px 0 0', color:'#64748b', fontSize:14 }}>Record of all critical actions performed in the system.</p>
       </div>
 
-      <div style={{ background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', overflow:'hidden' }}>
+      <div style={{ background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', overflow:'hidden' }}>
         <table style={{ width:'100%', borderCollapse:'collapse' }}>
           <thead>
             <tr>{['ID','User','Action','Timestamp'].map(h => (

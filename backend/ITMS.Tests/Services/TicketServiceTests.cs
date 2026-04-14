@@ -22,7 +22,7 @@ public class TicketServiceTests
     [Fact]
     public void CreateTicket_ShouldReturnTicketWithOpenStatus()
     {
-        // Arrange
+        
         var context = CreateInMemoryContext();
         context.Statuses.Add(new Status { Id = 1, Name = "Open" });
         context.Priorities.Add(new Priority { Id = 3, Name = "Medium" });
@@ -41,10 +41,10 @@ public class TicketServiceTests
 
         var dto = new CreateTicketDto { UserId = 1, Title = "Test Ticket", Description = "Desc", PriorityId = 3 };
 
-        // Act
+        
         var result = service.CreateTicket(dto);
 
-        // Assert
+        
         Assert.NotNull(result);
         Assert.Equal("Test Ticket", result.Title);
         Assert.Equal("Open", result.Status);
@@ -53,7 +53,7 @@ public class TicketServiceTests
     [Fact]
     public void CloseTicket_ShouldSetClosedAtAndSendNotification()
     {
-        // Arrange
+        
         var context = CreateInMemoryContext();
         context.Statuses.AddRange(
             new Status { Id = 1, Name = "Open" },
@@ -76,10 +76,10 @@ public class TicketServiceTests
 
         var service = new TicketService(ticketRepo.Object, auditService.Object, notificationService.Object, context);
 
-        // Act
+        
         service.CloseTicket(1, new CloseTicketDto { ClosedById = 2 });
 
-        // Assert
+        
         var ticket = context.Tickets.Find(1);
         Assert.NotNull(ticket!.ClosedAt);
         Assert.Equal(6, ticket.StatusId);
@@ -89,7 +89,7 @@ public class TicketServiceTests
     [Fact]
     public void AssignAgent_ShouldUpdateTicketAndLogHistory()
     {
-        // Arrange
+        
         var context = CreateInMemoryContext();
         context.Statuses.AddRange(
             new Status { Id = 1, Name = "Open" },
@@ -115,10 +115,10 @@ public class TicketServiceTests
 
         var service = new TicketService(ticketRepo.Object, auditService.Object, notificationService.Object, context);
 
-        // Act
+        
         service.AssignAgent(1, new AssignAgentDto { AgentId = 2, ManagerId = 3 });
 
-        // Assert
+        
         var ticket = context.Tickets.Find(1);
         Assert.Equal(2, ticket!.AssignedToId);
         Assert.Equal(2, ticket.StatusId);

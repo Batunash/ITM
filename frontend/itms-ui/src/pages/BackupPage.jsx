@@ -34,7 +34,7 @@ export default function BackupPage() {
       </div>
 
       <div style={s.grid}>
-        {/* Trigger card */}
+        {}
         <div style={s.card}>
           <div style={s.cardIcon}>💾</div>
           <div style={s.cardTitle}>Manual Backup</div>
@@ -58,7 +58,7 @@ export default function BackupPage() {
           </button>
         </div>
 
-        {/* Info card */}
+        {}
         <div style={s.card}>
           <div style={s.cardIcon}>ℹ️</div>
           <div style={s.cardTitle}>Backup Info</div>
@@ -78,7 +78,7 @@ export default function BackupPage() {
         </div>
       </div>
 
-      {/* Backup log */}
+      {}
       <div style={s.logCard}>
         <div style={s.logHead}>
           <span style={s.logTitle}>Session Backup Log</span>
@@ -120,21 +120,21 @@ const s = {
   pageTitle: { margin:0, fontSize:22, fontWeight:700, color:'#0f172a' },
   subtitle: { margin:'4px 0 0', color:'#64748b', fontSize:14 },
   grid: { display:'grid', gridTemplateColumns:'1fr 1fr', gap:20, marginBottom:24 },
-  card: { background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', padding:28, display:'flex', flexDirection:'column', gap:14 },
+  card: { background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', padding:28, display:'flex', flexDirection:'column', gap:14 },
   cardIcon: { fontSize:32 },
   cardTitle: { fontSize:16, fontWeight:700, color:'#0f172a' },
   cardDesc: { fontSize:14, color:'#64748b', lineHeight:1.6 },
-  okBox: { background:'#f0fdf4', border:'1px solid #bbf7d0', color:'#16a34a', padding:'10px 14px', borderRadius:8, fontSize:13 },
-  errBox: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius:8, fontSize:13 },
-  triggerBtn: { background:'#2563eb', color:'#fff', border:'none', padding:'13px 20px', borderRadius:8, fontSize:14, fontWeight:700, cursor:'pointer', marginTop:4 },
+  okBox: { background:'#f0fdf4', border:'1px solid #bbf7d0', color:'#16a34a', padding:'10px 14px', borderRadius: 4, fontSize:13 },
+  errBox: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius: 4, fontSize:13 },
+  triggerBtn: { background:'#334155', color:'#fff', border:'none', padding:'13px 20px', borderRadius: 4, fontSize:14, fontWeight:700, cursor:'pointer', marginTop:4 },
   infoList: { display:'flex', flexDirection:'column', gap:10 },
   infoRow: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'8px 0', borderBottom:'1px solid #f1f5f9' },
   infoLabel: { fontSize:13, color:'#64748b', fontWeight:600 },
   infoValue: { fontSize:13, color:'#374151', fontFamily:'monospace' },
-  logCard: { background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', overflow:'hidden' },
+  logCard: { background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', overflow:'hidden' },
   logHead: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 20px', borderBottom:'1px solid #f1f5f9', background:'#f8fafc' },
   logTitle: { fontSize:15, fontWeight:700, color:'#0f172a' },
-  clearBtn: { background:'none', border:'1px solid #e2e8f0', borderRadius:6, padding:'4px 12px', fontSize:12, cursor:'pointer', color:'#64748b' },
+  clearBtn: { background:'none', border:'1px solid #e2e8f0', borderRadius: 4, padding:'4px 12px', fontSize:12, cursor:'pointer', color:'#64748b' },
   empty: { margin:0, padding:'20px', color:'#94a3b8', fontSize:14 },
   table: { width:'100%', borderCollapse:'collapse' },
   th: { textAlign:'left', padding:'10px 16px', fontSize:11, fontWeight:700, color:'#64748b', background:'#f8fafc', borderBottom:'1px solid #e2e8f0', textTransform:'uppercase' },

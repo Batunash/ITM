@@ -11,11 +11,11 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Database
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Repositories
+
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAssetRepository, AssetRepository>();
@@ -23,7 +23,7 @@ builder.Services.AddScoped<IAuditLogRepository, AuditLogRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<IChangeRequestRepository, ChangeRequestRepository>();
 
-// Services
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
@@ -40,7 +40,7 @@ builder.Services.AddScoped<ICustomerHistoryService, CustomerHistoryService>();
 builder.Services.AddScoped<ISettingsService, SettingsService>();
 builder.Services.AddScoped<IBackupService, BackupService>();
 
-// JWT Authentication
+
 var jwtKey = builder.Configuration["Jwt:Key"] ?? "ITMSDefaultSecretKey2024!";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -59,7 +59,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// Swagger with JWT Bearer support
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -89,7 +89,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// CORS for React dev server
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact", policy =>

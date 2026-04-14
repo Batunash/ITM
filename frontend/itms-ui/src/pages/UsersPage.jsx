@@ -5,14 +5,14 @@ import { useAuth } from '../context/AuthContext';
 
 const ROLE_STYLES = {
   EndUser:        { bg:'#f1f5f9', color:'#475569' },
-  ITSupportAgent: { bg:'#dbeafe', color:'#1d4ed8' },
+  ITSupportAgent: { bg:'#dbeafe', color:'#1e293b' },
   ITManager:      { bg:'#ede9fe', color:'#7c3aed' },
   SystemAdmin:    { bg:'#fee2e2', color:'#dc2626' },
 };
 
 const RoleBadge = ({ role }) => {
   const st = ROLE_STYLES[role] || { bg:'#f1f5f9', color:'#475569' };
-  return <span style={{ background:st.bg, color:st.color, padding:'3px 10px', borderRadius:20, fontSize:12, fontWeight:600 }}>{role}</span>;
+  return <span style={{ background:st.bg, color:st.color, padding:'3px 10px', borderRadius: 4, fontSize:12, fontWeight:600 }}>{role}</span>;
 };
 
 function Modal({ title, onClose, children }) {
@@ -30,7 +30,7 @@ function Modal({ title, onClose, children }) {
 }
 const m = {
   overlay: { position:'fixed', inset:0, background:'rgba(0,0,0,0.45)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:1000 },
-  box: { background:'#fff', borderRadius:14, width:460, boxShadow:'0 20px 60px rgba(0,0,0,0.2)' },
+  box: { background:'#fff', borderRadius:14, width:460, border: '1px solid #e2e8f0', boxShadow: 'none' },
   head: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'18px 24px', borderBottom:'1px solid #f1f5f9' },
   title: { fontWeight:700, fontSize:16, color:'#0f172a' },
   x: { background:'none', border:'none', fontSize:24, cursor:'pointer', color:'#64748b', lineHeight:1, padding:0 },
@@ -61,13 +61,13 @@ export default function UsersPage() {
     api.get('/users').then(r => setUsers(Array.isArray(r.data) ? r.data : [])).catch(() => {});
     if (isAdmin) {
       api.get('/roles').then(r => setRoles(Array.isArray(r.data) ? r.data : [])).catch(() => {
-        // fallback static roles if endpoint fails
+        
         setRoles([{id:1,name:'EndUser'},{id:2,name:'ITSupportAgent'},{id:3,name:'ITManager'},{id:4,name:'SystemAdmin'}]);
       });
     }
   }, []);
 
-  /* ── Add user ── */
+  
   const handleAdd = async (e) => {
     e.preventDefault();
     setAddLoading(true); setAddError('');
@@ -126,7 +126,7 @@ export default function UsersPage() {
 
   return (
     <Layout>
-      {/* Add User Modal */}
+      {}
       {showAdd && (
         <Modal title="Add New User" onClose={() => setShowAdd(false)}>
           <form onSubmit={handleAdd} style={{ display:'flex', flexDirection:'column', gap:16 }}>
@@ -161,7 +161,7 @@ export default function UsersPage() {
         </Modal>
       )}
 
-      {/* Edit User Modal */}
+      {}
       {editUser && (
         <Modal title={`Edit — ${editUser.fullName}`} onClose={() => setEditUser(null)}>
           <form onSubmit={handleEdit} style={{ display:'flex', flexDirection:'column', gap:16 }}>
@@ -191,7 +191,7 @@ export default function UsersPage() {
         </Modal>
       )}
 
-      {/* Delete Confirm Modal */}
+      {}
       {deleteConfirm && (
         <Modal title="Delete User" onClose={() => setDeleteConfirm(null)}>
           <p style={{margin:'0 0 20px', color:'#374151', fontSize:14}}>
@@ -254,22 +254,22 @@ export default function UsersPage() {
 
 const f = {
   lbl: { display:'block', fontSize:13, fontWeight:600, color:'#374151', marginBottom:6 },
-  inp: { width:'100%', padding:'10px 12px', border:'1.5px solid #e2e8f0', borderRadius:8, fontSize:14, outline:'none', boxSizing:'border-box' },
-  err: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius:8, fontSize:13 },
+  inp: { width:'100%', padding:'10px 12px', border:'1.5px solid #e2e8f0', borderRadius: 4, fontSize:14, outline:'none', boxSizing:'border-box' },
+  err: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius: 4, fontSize:13 },
   row: { display:'flex', gap:10, marginTop:4 },
-  cancel: { flex:1, padding:'10px', background:'#f1f5f9', color:'#374151', border:'none', borderRadius:8, fontSize:14, cursor:'pointer' },
-  submit: { flex:2, padding:'10px', background:'#2563eb', color:'#fff', border:'none', borderRadius:8, fontSize:14, cursor:'pointer', fontWeight:600 },
+  cancel: { flex:1, padding:'10px', background:'#f1f5f9', color:'#374151', border:'none', borderRadius: 4, fontSize:14, cursor:'pointer' },
+  submit: { flex:2, padding:'10px', background:'#334155', color:'#fff', border:'none', borderRadius: 4, fontSize:14, cursor:'pointer', fontWeight:600 },
 };
 const s = {
   header: { display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:24 },
   pageTitle: { margin:0, fontSize:22, fontWeight:700, color:'#0f172a' },
   subtitle: { margin:'4px 0 0', color:'#64748b', fontSize:14 },
-  addBtn: { background:'#2563eb', color:'#fff', border:'none', padding:'10px 18px', borderRadius:8, cursor:'pointer', fontWeight:600 },
-  tableCard: { background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', overflow:'hidden' },
+  addBtn: { background:'#334155', color:'#fff', border:'none', padding:'10px 18px', borderRadius: 4, cursor:'pointer', fontWeight:600 },
+  tableCard: { background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', overflow:'hidden' },
   table: { width:'100%', borderCollapse:'collapse' },
   th: { textAlign:'left', padding:'12px 16px', fontSize:12, fontWeight:700, color:'#64748b', background:'#f8fafc', borderBottom:'1px solid #e2e8f0', textTransform:'uppercase' },
   tr: { borderBottom:'1px solid #f8fafc' },
   td: { padding:'12px 16px', fontSize:14, color:'#374151' },
-  editBtn: { background:'none', border:'1px solid #e2e8f0', borderRadius:6, padding:'5px 12px', fontSize:13, cursor:'pointer', color:'#374151' },
-  deleteBtn: { background:'none', border:'1px solid #fecaca', borderRadius:6, padding:'5px 12px', fontSize:13, cursor:'pointer', color:'#dc2626' },
+  editBtn: { background:'none', border:'1px solid #e2e8f0', borderRadius: 4, padding:'5px 12px', fontSize:13, cursor:'pointer', color:'#374151' },
+  deleteBtn: { background:'none', border:'1px solid #fecaca', borderRadius: 4, padding:'5px 12px', fontSize:13, cursor:'pointer', color:'#dc2626' },
 };

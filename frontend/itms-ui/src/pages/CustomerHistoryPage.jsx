@@ -7,7 +7,7 @@ const ASSET_STATUS_COLORS = { InStorage:'#22c55e', InUse:'#3b82f6', Maintenance:
 
 const Badge = ({ text, colorMap }) => {
   const color = (colorMap && colorMap[text]) || '#94a3b8';
-  return <span style={{ background: color+'20', color, padding:'3px 10px', borderRadius:20, fontSize:12, fontWeight:600 }}>{text}</span>;
+  return <span style={{ background: color+'20', color, padding:'3px 10px', borderRadius: 4, fontSize:12, fontWeight:600 }}>{text}</span>;
 };
 
 export default function CustomerHistoryPage() {
@@ -59,7 +59,7 @@ export default function CustomerHistoryPage() {
         <div style={s.results}>
           <div style={s.sectionTitle}>History for <strong>{userName}</strong></div>
 
-          {/* Tickets */}
+          {}
           <div style={s.card}>
             <div style={s.cardHead}>
               <span style={s.cardTitle}>Ticket History</span>
@@ -88,7 +88,7 @@ export default function CustomerHistoryPage() {
             )}
           </div>
 
-          {/* Assets */}
+          {}
           <div style={s.card}>
             <div style={s.cardHead}>
               <span style={s.cardTitle}>Assigned Assets</span>
@@ -126,15 +126,15 @@ const s = {
   pageTitle: { margin:0, fontSize:22, fontWeight:700, color:'#0f172a' },
   subtitle: { margin:'4px 0 0', color:'#64748b', fontSize:14 },
   searchBar: { display:'flex', gap:12, marginBottom:24, alignItems:'center' },
-  select: { flex:1, maxWidth:400, padding:'10px 12px', border:'1.5px solid #e2e8f0', borderRadius:8, fontSize:14, outline:'none' },
-  searchBtn: { padding:'10px 20px', background:'#2563eb', color:'#fff', border:'none', borderRadius:8, fontSize:14, fontWeight:600, cursor:'pointer' },
-  errBox: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius:8, fontSize:13, marginBottom:16 },
+  select: { flex:1, maxWidth:400, padding:'10px 12px', border:'1.5px solid #e2e8f0', borderRadius: 4, fontSize:14, outline:'none' },
+  searchBtn: { padding:'10px 20px', background:'#334155', color:'#fff', border:'none', borderRadius: 4, fontSize:14, fontWeight:600, cursor:'pointer' },
+  errBox: { background:'#fef2f2', border:'1px solid #fecaca', color:'#dc2626', padding:'10px 14px', borderRadius: 4, fontSize:13, marginBottom:16 },
   results: { display:'flex', flexDirection:'column', gap:20 },
   sectionTitle: { fontSize:16, color:'#374151', marginBottom:4 },
-  card: { background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', overflow:'hidden' },
+  card: { background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', overflow:'hidden' },
   cardHead: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 20px', borderBottom:'1px solid #f1f5f9', background:'#f8fafc' },
   cardTitle: { fontSize:15, fontWeight:700, color:'#0f172a' },
-  badge: { background:'#e0e7ff', color:'#3730a3', padding:'3px 10px', borderRadius:20, fontSize:12, fontWeight:600 },
+  badge: { background:'#e0e7ff', color:'#3730a3', padding:'3px 10px', borderRadius: 4, fontSize:12, fontWeight:600 },
   table: { width:'100%', borderCollapse:'collapse' },
   th: { textAlign:'left', padding:'10px 16px', fontSize:11, fontWeight:700, color:'#64748b', background:'#f8fafc', borderBottom:'1px solid #e2e8f0', textTransform:'uppercase' },
   tr: { borderBottom:'1px solid #f8fafc' },

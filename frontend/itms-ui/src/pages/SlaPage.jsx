@@ -7,7 +7,7 @@ const STATUS_COLORS = { Open:'#3b82f6', Pending:'#f59e0b', Resolved:'#10b981', C
 
 const Badge = ({ text, colorMap }) => {
   const color = (colorMap && colorMap[text]) || '#94a3b8';
-  return <span style={{ background: color+'20', color, padding:'3px 10px', borderRadius:20, fontSize:12, fontWeight:600 }}>{text}</span>;
+  return <span style={{ background: color+'20', color, padding:'3px 10px', borderRadius: 4, fontSize:12, fontWeight:600 }}>{text}</span>;
 };
 
 function formatHours(hours) {
@@ -63,14 +63,14 @@ export default function SlaPage() {
             })}
           </div>
 
-          {/* Violations */}
+          {}
           <div style={s.card}>
             <div style={s.cardHead}>
               <span style={s.cardTitle}>SLA Violations</span>
               <span style={{
                 background: violations.length > 0 ? '#fef2f2' : '#f0fdf4',
                 color: violations.length > 0 ? '#dc2626' : '#16a34a',
-                padding:'3px 10px', borderRadius:20, fontSize:12, fontWeight:600
+                padding:'3px 10px', borderRadius: 4, fontSize:12, fontWeight:600
               }}>
                 {violations.length} ticket{violations.length !== 1 ? 's' : ''}
               </span>
@@ -123,17 +123,17 @@ const s = {
   pageTitle: { margin:0, fontSize:22, fontWeight:700, color:'#0f172a' },
   subtitle: { margin:'4px 0 0', color:'#64748b', fontSize:14 },
   violationBadge: { paddingTop:4 },
-  violationAlert: { background:'#fef2f2', color:'#dc2626', border:'1px solid #fecaca', padding:'8px 14px', borderRadius:8, fontSize:13, fontWeight:700 },
-  violationOk: { background:'#f0fdf4', color:'#16a34a', border:'1px solid #bbf7d0', padding:'8px 14px', borderRadius:8, fontSize:13, fontWeight:700 },
+  violationAlert: { background:'#fef2f2', color:'#dc2626', border:'1px solid #fecaca', padding:'8px 14px', borderRadius: 4, fontSize:13, fontWeight:700 },
+  violationOk: { background:'#f0fdf4', color:'#16a34a', border:'1px solid #bbf7d0', padding:'8px 14px', borderRadius: 4, fontSize:13, fontWeight:700 },
   loading: { color:'#64748b', fontSize:14, padding:20 },
   grid: { display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16, marginBottom:24 },
-  slaCard: { background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', overflow:'hidden', display:'flex', flexDirection:'column' },
+  slaCard: { background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', overflow:'hidden', display:'flex', flexDirection:'column' },
   priorityBar: { height:4 },
   slaBody: { padding:'18px 20px' },
   priorityLabel: { fontSize:12, fontWeight:700, textTransform:'uppercase', letterSpacing:0.8, marginBottom:8 },
   targetHours: { fontSize:32, fontWeight:800, color:'#0f172a', lineHeight:1, marginBottom:4 },
   targetLabel: { fontSize:12, color:'#94a3b8' },
-  card: { background:'#fff', borderRadius:12, border:'1px solid #e2e8f0', overflow:'hidden' },
+  card: { background:'#fff', borderRadius: 4, border:'1px solid #e2e8f0', overflow:'hidden' },
   cardHead: { display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 20px', borderBottom:'1px solid #f1f5f9', background:'#f8fafc' },
   cardTitle: { fontSize:15, fontWeight:700, color:'#0f172a' },
   okState: { display:'flex', alignItems:'center', gap:16, padding:'24px 20px' },
