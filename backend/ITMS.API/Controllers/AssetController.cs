@@ -31,12 +31,12 @@ public class AssetController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "ITManager,SystemAdmin")]
+    [Authorize(Policy = "ManageAssets")]
     public IActionResult Create([FromBody] CreateAssetDto dto)
         => Ok(_assetService.CreateAsset(dto));
 
     [HttpPost("{id}/assign")]
-    [Authorize(Roles = "ITManager,SystemAdmin")]
+    [Authorize(Policy = "ManageAssets")]
     public IActionResult Assign(int id, [FromBody] AssignAssetDto dto)
     {
         try
@@ -51,7 +51,7 @@ public class AssetController : ControllerBase
     }
 
     [HttpPut("{id}/status")]
-    [Authorize(Roles = "ITManager,SystemAdmin")]
+    [Authorize(Policy = "ManageAssets")]
     public IActionResult UpdateStatus(int id, [FromBody] UpdateAssetStatusDto dto)
     {
         var result = _assetService.UpdateAssetStatus(id, dto);

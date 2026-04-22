@@ -6,7 +6,7 @@ namespace ITMS.API.Controllers;
 
 [ApiController]
 [Route("api/audit-logs")]
-[Authorize(Roles = "ITManager,SystemAdmin")]
+[Authorize(Policy = "ViewAuditLogs")]
 public class AuditLogController : ControllerBase
 {
     private readonly IAuditLogService _auditLogService;

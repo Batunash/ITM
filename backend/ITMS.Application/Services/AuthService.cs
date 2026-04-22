@@ -13,11 +13,13 @@ public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
     private readonly IConfiguration _configuration;
+    private readonly IRoleService _roleService;
 
-    public AuthService(IUserRepository userRepository, IConfiguration configuration)
+    public AuthService(IUserRepository userRepository, IConfiguration configuration, IRoleService roleService)
     {
         _userRepository = userRepository;
         _configuration = configuration;
+        _roleService = roleService;
     }
 
     public LoginResultDto? Login(LoginDto dto)
@@ -26,7 +28,8 @@ public class AuthService : IAuthService
         if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
             return null;
 
-        var token = GenerateJwtToken(user.Id, user.Email, user.Role.Name);
+        var permissions = _roleService.GetPermissionNamesByRoleName(user.Role.Name);
+        var token = GenerateJwtToken(user.Id, user.Email, user.Role.Name, permissions);
         return new LoginResultDto
         {
             Token = token,
@@ -39,18 +42,19 @@ public class AuthService : IAuthService
     public LoginResultDto? Register(RegisterDto dto)
     {
         if (_userRepository.GetByEmail(dto.Email) != null)
-            return null; 
+            return null;
 
         var user = new ITMS.Domain.Entities.User
         {
             FullName = dto.FullName,
             Email = dto.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-            RoleId = 1 
+            RoleId = 1
         };
         _userRepository.Add(user);
 
-        var token = GenerateJwtToken(user.Id, user.Email, "EndUser");
+        var permissions = _roleService.GetPermissionNamesByRoleName("EndUser");
+        var token = GenerateJwtToken(user.Id, user.Email, "EndUser", permissions);
         return new LoginResultDto
         {
             Token = token,
@@ -63,18 +67,19 @@ public class AuthService : IAuthService
     public string HashPassword(string plainPassword)
         => BCrypt.Net.BCrypt.HashPassword(plainPassword);
 
-    private string GenerateJwtToken(int userId, string email, string role)
+    private string GenerateJwtToken(int userId, string email, string role, IEnumerable<string> permissions)
     {
         var jwtKey = _configuration["Jwt:Key"] ?? "ITMSDefaultSecretKey2024!";
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
+        var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
             new Claim(ClaimTypes.Email, email),
             new Claim(ClaimTypes.Role, role)
         };
+        claims.AddRange(permissions.Select(p => new Claim("permission", p)));
 
         var token = new JwtSecurityToken(
             issuer: _configuration["Jwt:Issuer"] ?? "ITMS",

@@ -57,7 +57,7 @@ export default function AssetManagementPage() {
   const [openMenu, setOpenMenu] = useState(null);
   const [statusLoading, setStatusLoading] = useState(null);
   const { user } = useAuth();
-  const canManage = ['ITManager','SystemAdmin'].includes(user?.role);
+  const canManage = user?.permissions?.includes('ManageAssets') ?? false;
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -6,7 +6,7 @@ namespace ITMS.API.Controllers;
 
 [ApiController]
 [Route("api/settings")]
-[Authorize(Roles = "SystemAdmin")]
+[Authorize(Policy = "ManageSettings")]
 public class SettingsController : ControllerBase
 {
     private readonly ISettingsService _settingsService;

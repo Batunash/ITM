@@ -47,9 +47,9 @@ export default function TicketManagementPage() {
   const [actionError, setActionError] = useState('');
 
   const { user } = useAuth();
-  const canAssign = ['ITManager','SystemAdmin'].includes(user?.role);
+  const canAssign = user?.permissions?.includes('AssignTicket') ?? false;
   const canClose  = user?.permissions?.includes('CloseTicket') ?? false;
-  const canChangeStatus = ['ITSupportAgent','ITManager','SystemAdmin'].includes(user?.role);
+  const canChangeStatus = user?.permissions?.includes('CloseTicket') ?? false;
   const isEndUser = user?.role === 'EndUser';
 
   const onDrop = useCallback(f => setFiles(p => [...p, ...f]), []);

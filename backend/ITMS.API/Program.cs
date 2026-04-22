@@ -57,7 +57,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ViewTickets",    p => p.RequireClaim("permission", "ViewTickets"));
+    options.AddPolicy("CreateTicket",   p => p.RequireClaim("permission", "CreateTicket"));
+    options.AddPolicy("AssignTicket",   p => p.RequireClaim("permission", "AssignTicket"));
+    options.AddPolicy("CloseTicket",    p => p.RequireClaim("permission", "CloseTicket"));
+    options.AddPolicy("ManageUsers",    p => p.RequireClaim("permission", "ManageUsers"));
+    options.AddPolicy("ManageAssets",   p => p.RequireClaim("permission", "ManageAssets"));
+    options.AddPolicy("ViewReports",    p => p.RequireClaim("permission", "ViewReports"));
+    options.AddPolicy("ViewAuditLogs",  p => p.RequireClaim("permission", "ViewAuditLogs"));
+    options.AddPolicy("ManageSettings", p => p.RequireClaim("permission", "ManageSettings"));
+});
 
 
 builder.Services.AddSwaggerGen(c =>

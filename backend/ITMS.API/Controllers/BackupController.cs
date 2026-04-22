@@ -6,7 +6,7 @@ namespace ITMS.API.Controllers;
 
 [ApiController]
 [Route("api/backup")]
-[Authorize(Roles = "SystemAdmin")]
+[Authorize(Policy = "ManageSettings")]
 public class BackupController : ControllerBase
 {
     private readonly IBackupService _backupService;

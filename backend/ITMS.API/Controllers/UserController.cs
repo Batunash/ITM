@@ -18,7 +18,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "ITManager,SystemAdmin")]
+    [Authorize(Policy = "ManageUsers")]
     public IActionResult GetAll() => Ok(_userService.GetAllUsers());
 
     [HttpGet("{id}")]
@@ -29,12 +29,12 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "SystemAdmin")]
+    [Authorize(Policy = "ManageUsers")]
     public IActionResult Create([FromBody] CreateUserDto dto)
         => Ok(_userService.CreateUser(dto));
 
     [HttpPut("{id}")]
-    [Authorize(Roles = "SystemAdmin")]
+    [Authorize(Policy = "ManageUsers")]
     public IActionResult Update(int id, [FromBody] UpdateUserDto dto)
     {
         var result = _userService.UpdateUser(id, dto);
@@ -42,7 +42,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = "SystemAdmin")]
+    [Authorize(Policy = "ManageUsers")]
     public IActionResult Delete(int id)
     {
         _userService.DeleteUser(id);

@@ -6,7 +6,7 @@ namespace ITMS.API.Controllers;
 
 [ApiController]
 [Route("api/reports")]
-[Authorize(Roles = "ITManager,SystemAdmin")]
+[Authorize(Policy = "ViewReports")]
 public class ReportController : ControllerBase
 {
     private readonly IReportService _reportService;

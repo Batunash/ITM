@@ -6,7 +6,7 @@ namespace ITMS.API.Controllers;
 
 [ApiController]
 [Route("api/sla")]
-[Authorize(Roles = "ITManager,SystemAdmin")]
+[Authorize(Policy = "ViewReports")]
 public class SlaController : ControllerBase
 {
     private readonly ISlaService _slaService;

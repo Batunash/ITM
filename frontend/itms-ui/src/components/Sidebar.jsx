@@ -2,18 +2,18 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const navItems = [
-  { to: '/dashboard',         label: 'Dashboard',         roles: ['EndUser','ITSupportAgent','ITManager','SystemAdmin'] },
-  { to: '/tickets',           label: 'Tickets',           roles: ['EndUser','ITSupportAgent','ITManager','SystemAdmin'] },
-  { to: '/assets',            label: 'Assets',            roles: ['ITSupportAgent','ITManager','SystemAdmin'] },
-  { to: '/users',             label: 'Users',             roles: ['ITManager','SystemAdmin'] },
-  { to: '/change-requests',   label: 'Change Requests',   roles: ['EndUser','ITSupportAgent','ITManager','SystemAdmin'] },
-  { to: '/sla',               label: 'SLA',               roles: ['ITManager','SystemAdmin'] },
-  { to: '/customer-history',  label: 'Customer History',  roles: ['ITManager','SystemAdmin'] },
-  { to: '/reports',           label: 'Reports',           roles: ['ITManager','SystemAdmin'] },
-  { to: '/audit-logs',        label: 'Audit Logs',        roles: ['ITManager','SystemAdmin'] },
-  { to: '/roles',             label: 'Role Management',   roles: ['SystemAdmin'] },
-  { to: '/settings',          label: 'Settings',          roles: ['SystemAdmin'] },
-  { to: '/backup',            label: 'Backup',            roles: ['SystemAdmin'] },
+  { to: '/dashboard',        label: 'Dashboard',        permissions: [] },
+  { to: '/tickets',          label: 'Tickets',          permissions: ['ViewTickets'] },
+  { to: '/assets',           label: 'Assets',           permissions: ['ManageAssets'] },
+  { to: '/users',            label: 'Users',            permissions: ['ManageUsers'] },
+  { to: '/change-requests',  label: 'Change Requests',  permissions: [] },
+  { to: '/sla',              label: 'SLA',              permissions: ['ViewReports'] },
+  { to: '/customer-history', label: 'Customer History', permissions: ['ViewReports'] },
+  { to: '/reports',          label: 'Reports',          permissions: ['ViewReports'] },
+  { to: '/audit-logs',       label: 'Audit Logs',       permissions: ['ViewAuditLogs'] },
+  { to: '/roles',            label: 'Role Management',  permissions: ['ManageSettings'] },
+  { to: '/settings',         label: 'Settings',         permissions: ['ManageSettings'] },
+  { to: '/backup',           label: 'Backup',           permissions: ['ManageSettings'] },
 ];
 
 export default function Sidebar() {
@@ -25,7 +25,10 @@ export default function Sidebar() {
     navigate('/login');
   };
 
-  const visible = navItems.filter(item => item.roles.includes(user?.role));
+  const visible = navItems.filter(item =>
+    item.permissions.length === 0 ||
+    item.permissions.some(p => user?.permissions?.includes(p))
+  );
 
   return (
     <aside style={styles.sidebar}>

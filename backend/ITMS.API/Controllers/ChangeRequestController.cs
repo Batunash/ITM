@@ -32,7 +32,7 @@ public class ChangeRequestController : ControllerBase
         => Ok(_changeRequestService.SubmitRequest(dto));
 
     [HttpPost("{id}/approve")]
-    [Authorize(Roles = "ITManager,SystemAdmin")]
+    [Authorize(Policy = "AssignTicket")]
     public IActionResult Approve(int id)
     {
         _changeRequestService.Approve(id);
@@ -40,7 +40,7 @@ public class ChangeRequestController : ControllerBase
     }
 
     [HttpPost("{id}/reject")]
-    [Authorize(Roles = "ITManager,SystemAdmin")]
+    [Authorize(Policy = "AssignTicket")]
     public IActionResult Reject(int id)
     {
         _changeRequestService.Reject(id);

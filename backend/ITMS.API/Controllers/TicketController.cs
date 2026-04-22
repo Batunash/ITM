@@ -18,9 +18,11 @@ public class TicketController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy = "ViewTickets")]
     public IActionResult GetAll() => Ok(_ticketService.GetAll());
 
     [HttpGet("{id}")]
+    [Authorize(Policy = "ViewTickets")]
     public IActionResult GetById(int id)
     {
         var ticket = _ticketService.GetById(id);
@@ -28,15 +30,17 @@ public class TicketController : ControllerBase
     }
 
     [HttpGet("user/{userId}")]
+    [Authorize(Policy = "ViewTickets")]
     public IActionResult GetByUser(int userId)
         => Ok(_ticketService.GetByUserId(userId));
 
     [HttpPost]
+    [Authorize(Policy = "CreateTicket")]
     public IActionResult Create([FromBody] CreateTicketDto dto)
         => Ok(_ticketService.CreateTicket(dto));
 
     [HttpPost("{id}/assign")]
-    [Authorize(Roles = "ITManager,SystemAdmin")]
+    [Authorize(Policy = "AssignTicket")]
     public IActionResult Assign(int id, [FromBody] AssignAgentDto dto)
     {
         _ticketService.AssignAgent(id, dto);
@@ -44,7 +48,7 @@ public class TicketController : ControllerBase
     }
 
     [HttpPost("{id}/close")]
-    [Authorize(Roles = "EndUser,ITSupportAgent,ITManager,SystemAdmin")]
+    [Authorize(Policy = "CloseTicket")]
     public IActionResult Close(int id, [FromBody] CloseTicketDto dto)
     {
         _ticketService.CloseTicket(id, dto);
@@ -59,7 +63,7 @@ public class TicketController : ControllerBase
     }
 
     [HttpPut("{id}/priority")]
-    [Authorize(Roles = "ITManager,SystemAdmin")]
+    [Authorize(Policy = "AssignTicket")]
     public IActionResult UpdatePriority(int id, [FromQuery] int priorityId)
     {
         _ticketService.UpdatePriority(id, priorityId);

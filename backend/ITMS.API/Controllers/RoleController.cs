@@ -6,7 +6,7 @@ namespace ITMS.API.Controllers;
 
 [ApiController]
 [Route("api/roles")]
-[Authorize(Roles = "SystemAdmin")]
+[Authorize(Policy = "ManageSettings")]
 public class RoleController : ControllerBase
 {
     private readonly IRoleService _roleService;

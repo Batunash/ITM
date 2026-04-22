@@ -55,7 +55,7 @@ export default function UsersPage() {
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   const { user: currentUser } = useAuth();
-  const isAdmin = currentUser?.role === 'SystemAdmin';
+  const isAdmin = currentUser?.permissions?.includes('ManageUsers') ?? false;
 
   useEffect(() => {
     api.get('/users').then(r => setUsers(Array.isArray(r.data) ? r.data : [])).catch(() => {});
